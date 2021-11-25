@@ -83,9 +83,13 @@ namespace MultiThreading
             Thread thread3 = new Thread(start3);
             thread3.Start(results);
 
-            Thread.Sleep(100);
+            ParameterizedThreadStart start4 = new ParameterizedThreadStart(ShowConsole);
+            Thread thread4 = new Thread(start4);
+            thread4.Start(collect);
 
-            Console.WriteLine($"Max = {results[0]}");
+            Thread.Sleep(10000);
+
+            Console.WriteLine($"\nMax = {results[0]}");
             Console.WriteLine($"Min = {results[1]}");
             Console.WriteLine($"Avg = {results[2]}");
         }
@@ -177,6 +181,15 @@ namespace MultiThreading
                 avgi += item;
             }
             avg[2] = (int)(avgi / 10000);
+        }
+
+        private static void ShowConsole(object coll)
+        {
+            int[] colle = coll as int[];
+            foreach (var item in colle)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }
